@@ -1,0 +1,3 @@
+.flakenv
+*.pyc
+*.pyos
