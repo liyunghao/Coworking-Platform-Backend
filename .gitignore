@@ -1,3 +1,7 @@
 .flakenv
 *.pyc
 *.pyos
+
+# Vscode
+.devcontainer
+.vscode
