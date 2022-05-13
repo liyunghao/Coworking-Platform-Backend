@@ -13,6 +13,8 @@ from requests import get, post, put, delete
 # Criteria: Base Choice Coverage(BCC)
 
 # testcase
+URL = "http://localhost:5000"
+
 
 # `/create`(C1, C2):
 # - (Basic) true, true
@@ -20,14 +22,12 @@ from requests import get, post, put, delete
 # - ture, false
 # - false, false
 
-URL = "http://localhost:5000"
-
 
 @pytest.mark.parametrize('testcase, ans', [
     ({'content': 'Valid Message'}, 200),
     ({'content': 'Invalid Message'}, 400)
 ])
-def test_create(testcase, ans):
+def test_create (testcase, ans):
     """
     Test Cases: create route
     """
@@ -38,15 +38,52 @@ def test_create(testcase, ans):
 # `/read`(C3):
 # - (Basic) true
 # - false
+@pytest.mark.parametrize('id_, ans', [
+    (1, 200),
+    (-1, 400)
+])
+def test_read (id_, ans):
+    """
+    Test Cases: read route
+    """
+    resp = get(f'{URL}/bulletin/{id_}')
 
-# `/update`(C1, C3, C4):
-# - (Basic) true, true, true
-# - false, true, true
-# - true, false, true
-# - true, true, false
+    assert resp.status_code == ans
+
+#  `/update`(C1, C2, C3, C4):
+#  - (Basic) true, true, true, true
+#  - false, true, true, true
+#  - true, false, true, true
+#  - true, true, false, true
+#  - true, true, true, false
+@pytest.mark.parametrize('message, id_, ans', [
+    ({'content': 'Valid Message'}, 1, 200),
+    ({'content': 'Valid Message'}, -1, 400),
+    ({'content': 'Invalid Message'}, -1, 400)
+])
+def test_update (message, id_, ans):
+    """
+    Test Cases: update route
+    """
+    resp = put(f'{URL}/bulletin/{id_}', json=message)
+
+    assert resp.status_code == ans
+
 
 # `/delete`(C1, C3, C4):
 # - (Basic) true, true, true
 # - false, true, true
 # - true, false, true
 # - true, true, false
+@pytest.mark.parametrize('id_, ans', [
+    ( 1, 200),
+    ( -1, 400)
+])
+def test_delete(id_, ans):
+    """
+    Test Cases: delete route
+    """
+    resp = delete(f'{URL}/bulletin/{id_}')
+
+    assert resp.status_code == ans
+
