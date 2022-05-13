@@ -1,3 +1,7 @@
+import pytest
+
+from requests import get, post, put, delete
+
 # E2E testing
 # Input space partitioning
 
@@ -15,6 +19,21 @@
 # - false, true
 # - ture, false
 # - false, false
+
+URL = "http://localhost:5000"
+
+
+@pytest.mark.parametrize('testcase, ans', [
+    ({'content': 'Valid Message'}, 200),
+    ({'content': 'Invalid Message'}, 400)
+])
+def test_create(testcase, ans):
+    """
+    Test Cases: create route
+    """
+    resp = post(f'{URL}/bulletin', json=testcase)
+
+    assert resp.status_code == ans
 
 # `/read`(C3):
 # - (Basic) true
