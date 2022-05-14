@@ -1,10 +1,9 @@
 from flask import Flask
 from flask_restx import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
-from .apis.bulletin import Bulletin
-from .apis.user import User, Login
-# from .db import db, model
-# from .apis import bulletin
+from .apis.bulletin import BulletinAPI
+from .apis.user import UserAPI, LoginAPI
+from .db.model import db
 
 
 def create():
@@ -15,7 +14,7 @@ def create():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # db
-    # db.init_app(app)
-    # with app.app_context():
-    #     db.create_all()
+    db.init_app(app)
+    with app.app_context():
+        db.create_all()
     return app
