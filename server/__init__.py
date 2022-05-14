@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restx import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
 from .apis.bulletin import Bulletin
+from .apis.user import User, Login
 # from .db import db, model
 # from .apis import bulletin
 
