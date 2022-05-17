@@ -5,3 +5,6 @@
 # Vscode
 .devcontainer
 .vscode
+
+# Pytest Cache
+.pytest_cache
