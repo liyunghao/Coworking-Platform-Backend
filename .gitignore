@@ -5,3 +5,6 @@
 # Vscode
 .devcontainer
 .vscode
+
+# db
+.db
