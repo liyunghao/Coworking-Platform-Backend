@@ -8,3 +8,6 @@
 
 # db
 .db
+
+# Pytest Cache
+.pytest_cache
