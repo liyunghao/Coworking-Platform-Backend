@@ -1,7 +1,7 @@
 from flask_restx import Api, Resource
 
 
-class Bulletin(Resource):
+class BulletinAPI(Resource):
 
     def get(self, id=None):
 

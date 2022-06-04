@@ -3,9 +3,9 @@ from server import *
 app = create()
 api = Api(app, doc='/api/doc')
 
-api.add_resource(Bulletin, '/bulletin', '/bulletin/<string:id>')
-api.add_resource(User, '/users', '/users/<string:id>')
-api.add_resource(Login, '/login')
+api.add_resource(BulletinAPI, '/bulletin', '/bulletin/<string:account>')
+api.add_resource(UserAPI, '/users', '/users/<string:account>')
+api.add_resource(LoginAPI, '/login')
 
 if __name__ == '__main__':
     app.run()
