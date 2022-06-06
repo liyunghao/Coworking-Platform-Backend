@@ -3,7 +3,7 @@ from server import *
 app = create()
 api = Api(app, doc='/api/doc')
 
-api.add_resource(BulletinAPI, '/bulletin', '/bulletin/<string:account>')
+api.add_resource(BulletinAPI, '/bulletin', '/bulletin/<string:id>')
 api.add_resource(UserAPI, '/users', '/users/<string:account>')
 api.add_resource(LoginAPI, '/login')
 
