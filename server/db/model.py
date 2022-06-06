@@ -1,9 +1,22 @@
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash
 import uuid
+import datetime
 
 db = SQLAlchemy()
 
+class dbTemplate():
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def remove(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def as_dict(self):
+        return {col.name: str(getattr(self, col.name)) for col in self.__table__.columns}
+        
 class Users(db.Model):
     username = db.Column(db.String(50), primary_key=True)
     uid = db.Column(db.String(100))
@@ -37,3 +50,20 @@ class Users(db.Model):
     def remove(self):
         db.session.delete(self)
         db.session.commit()
+
+class Bulletin(db.Model, dbTemplate):
+    postId = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    content = db.Column(db.Text)
+    author = db.Column(db.String(100))
+    tag = db.Column(db.String(100))
+    date = db.Column(db.Date)
+
+    def __init__(self, title, content, author, tag):
+        self.title = title
+        self.content = content
+        self.author = author
+        self.tag = tag
+        self.date = datetime.datetime.now()
+
+
