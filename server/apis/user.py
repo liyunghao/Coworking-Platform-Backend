@@ -11,7 +11,7 @@ class UserAPI(Resource):
     def get(self, account=None):
         if not account:
             all_user = Users.query.all()
-            payload = {i: user.as_dict() for i, user in enumerate(all_user)}
+            payload = [ user.as_dict() for i, user in enumerate(all_user)]
             if all_user:
                 return make_response(jsonify({'payload': payload}), 200)
             else:
@@ -80,7 +80,7 @@ class LoginAPI(Resource):
             if check_password_hash(login_user.password, data['password']):
                 token = jwt.encode({
                     'username': login_user.username,
-                    'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30),
+                    'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=180),
                     'iat': datetime.datetime.utcnow()},
                     'test',
                     algorithm='HS256'
