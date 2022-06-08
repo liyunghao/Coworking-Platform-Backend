@@ -66,4 +66,9 @@ class Bulletin(db.Model, dbTemplate):
         self.tag = tag
         self.date = datetime.datetime.now()
 
-
+    def update(self, data, author):
+        for key in data:
+            setattr(self, key, data[key])
+        setattr(self, 'author', author)
+        setattr(self, 'date', datetime.datetime.now())
+        db.session.commit()
